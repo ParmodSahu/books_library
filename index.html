@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        /* CSS for the image slider container and images */
+        #slider-container {
+            width: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        #image-slider {
+            width: 2000px; /* Adjust this value based on the number of images */
+            transition: all 0.5s;
+        }
+
+        #image-slider img {
+            float: left;
+            width: 400px;
+        }
+
+        /* CSS for navigation buttons */
+        #prev-btn, #next-btn {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="slider-container">
+        <div id="image-slider">
+            <img src="image1.jpg" alt="Image 1">
+            <img src="image2.jpg" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+            <!-- Add more image elements as needed -->
+        </div>
+    </div>
+
+    <button id="prev-btn">Previous</button>
+    <button id="next-btn">Next</button>
+
+    <script>
+        // JavaScript for image slider
+        const slider = document.getElementById("image-slider");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        let imageIndex = 0;
+
+        function showImage(index) {
+            if (index < 0) {
+                index = slider.children.length - 1;
+            } else if (index >= slider.children.length) {
+                index = 0;
+            }
+            const offset = -index * 400; // Adjust 400 based on image width
+            slider.style.transform = `translateX(${offset}px)`;
+            imageIndex = index;
+        }
+
+        prevBtn.addEventListener("click", () => {
+            showImage(imageIndex - 1);
+        });
+
+        nextBtn.addEventListener("click", () => {
+            showImage(imageIndex + 1);
+        });
+
+        // Automatic slideshow
+        setInterval(() => {
+            showImage(imageIndex + 1);
+        }, 3000); // Change image every 3 seconds (adjust as needed)
+    </script>
+</body>
+</html>
